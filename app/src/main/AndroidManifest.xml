@@ -24,12 +24,13 @@
         <activity android:name=".camera.CustomCamera" />
         <activity android:name=".camera.CameraResult" />
         <activity android:name=".show.ShowActivity" />
-        <activity android:name=".shexiang.Move"></activity>
+        <activity android:name=".shexiang.Move" />
         <activity
             android:name=".shexiang.VideoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".shexiang.ControllerActivity" />
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".ADActivity" />
     </application>
 
 </manifest>

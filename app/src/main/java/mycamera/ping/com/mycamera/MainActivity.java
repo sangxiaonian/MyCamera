@@ -4,17 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
 import mycamera.ping.com.mycamera.camera.CustomCamera;
 import mycamera.ping.com.mycamera.shexiang.ControllerActivity;
 import mycamera.ping.com.mycamera.shexiang.Move;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     private static int CAMERA_CODE1 = 1;
     private static int CAMERA_CODE2 = 2;
     private String mFilePath = "";
+
+
 
 
     @Override
@@ -33,7 +37,7 @@ public class MainActivity extends Activity {
 
     public void camera1(View view) {
 
-        final Intent intent = new Intent(this, BaseActivity.class);
+        final Intent intent = new Intent(this, ControllerActivity.class);
         startActivity(intent);
     }
 

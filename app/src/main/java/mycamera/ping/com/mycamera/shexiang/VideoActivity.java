@@ -18,11 +18,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import mycamera.ping.com.mycamera.BaseActivity;
 import mycamera.ping.com.mycamera.JLog;
 import mycamera.ping.com.mycamera.R;
 import mycamera.ping.com.mycamera.bean.Config;
 
-public class VideoActivity extends Activity {
+public class VideoActivity extends BaseActivity {
 	private SurfaceView sv_view;
 	private boolean isRecording;
 	private MediaRecorder mediaRecorder;
