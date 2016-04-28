@@ -14,10 +14,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import mycamera.ping.com.mycamera.BaseActivity;
 import mycamera.ping.com.mycamera.R;
 import mycamera.ping.com.mycamera.show.ShowActivity;
 
-public class CameraResult extends Activity {
+public class CameraResult extends BaseActivity {
 
     private String picPath;
 

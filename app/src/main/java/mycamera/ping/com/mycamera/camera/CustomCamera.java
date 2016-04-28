@@ -17,11 +17,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import mycamera.ping.com.mycamera.BaseActivity;
 import mycamera.ping.com.mycamera.JLog;
 import mycamera.ping.com.mycamera.R;
 import mycamera.ping.com.mycamera.bean.Config;
 
-public class CustomCamera extends Activity implements SurfaceHolder.Callback {
+public class CustomCamera extends BaseActivity implements SurfaceHolder.Callback {
 
     /**
      * Camera回调，通过data[]保持图片数据信息

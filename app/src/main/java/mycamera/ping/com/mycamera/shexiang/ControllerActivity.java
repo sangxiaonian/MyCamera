@@ -14,11 +14,12 @@ import android.widget.VideoView;
 
 import java.io.File;
 
+import mycamera.ping.com.mycamera.BaseActivity;
 import mycamera.ping.com.mycamera.JLog;
 import mycamera.ping.com.mycamera.R;
 import mycamera.ping.com.mycamera.bean.Config;
 
-public class ControllerActivity extends Activity implements OnClickListener {
+public class ControllerActivity extends BaseActivity implements OnClickListener {
     private VideoView vv_video, vv_video_down;
     private MediaController mController, mediaController_down;
 
