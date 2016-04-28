@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 
     public void camera1(View view) {
 
-        final Intent intent = new Intent(this, ControllerActivity.class);
+        final Intent intent = new Intent(this, BaseActivity.class);
         startActivity(intent);
     }
 

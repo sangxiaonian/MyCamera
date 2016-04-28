@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.Camera;
+import android.media.CamcorderProfile;
 import android.media.MediaDataSource;
 import android.media.MediaRecorder;
 import android.media.MediaRecorder.OnErrorListener;
@@ -28,6 +30,7 @@ public class VideoActivity extends Activity {
 	private String path;
 
 	private Button bt_start,bt_stop;
+	private Camera mCamera;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +46,14 @@ public class VideoActivity extends Activity {
 		bt_stop = (Button) findViewById(R.id.bt_stop);
 
 		bt_start.setVisibility(View.VISIBLE);
-	bt_stop.setVisibility(View.GONE);
+		bt_stop.setVisibility(View.GONE);
 		bt_start.setOnClickListener(click);
 		bt_stop.setOnClickListener(click);
 
 		// 声明Surface不维护自己的缓冲区，针对Android3.0以下设备支持
 		sv_view.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+		releaseCamera();
+//		getCamera();
 	}
 
 	private View.OnClickListener click = new OnClickListener() {
@@ -73,7 +78,7 @@ public class VideoActivity extends Activity {
 		bt_start.setVisibility(View.GONE);
 		bt_stop.setVisibility(View.VISIBLE);
 
-		JLog.i("-------开始录制------");
+		JLog.i("------444-开始录制-1080-----");
 		File file1 = new File(Config.videDis);
 		if (!file1.exists()||file1.isFile()){
 			file1.mkdirs();
@@ -86,7 +91,12 @@ public class VideoActivity extends Activity {
 				file.delete();
 			}
 
+			if (mCamera==null){
+//				getCamera();
+			}
+
 			mediaRecorder = new MediaRecorder();
+//			mediaRecorder.setCamera(mCamera);
 			mediaRecorder.reset();
 			// 设置音频录入源
 			mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -94,12 +104,15 @@ public class VideoActivity extends Activity {
 			mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 			// 设置录入媒体的输出格式
 			mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+			mediaRecorder.setVideoSize(getWindowManager().getDefaultDisplay().getWidth()*10, getWindowManager().getDefaultDisplay().getHeight()*10); // 设置视频录制的分辨率。必须放在设置编码和格式的后面，否则报错
 			// 设置音频的编码格式
 			mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-			// 设置视频的编码格式
-			mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
+//			// 设置视频的编码格式
+			mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
+//			mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_LOW));
+			mediaRecorder.setVideoEncodingBitRate(900*1024);
 			// 设置视频的采样率，每秒4帧
-			mediaRecorder.setVideoFrameRate(4);
+//			mediaRecorder.setVideoFrameRate(4);
 
 
 			JLog.i("--------180--------");
@@ -120,6 +133,7 @@ public class VideoActivity extends Activity {
 					bt_stop.setVisibility(View.GONE);
 					bt_start.setVisibility(View.VISIBLE);
 					Toast.makeText(VideoActivity.this, "录制出错", Toast.LENGTH_SHORT).show();
+					releaseCamera();
 				}
 			});
 
@@ -147,6 +161,7 @@ public class VideoActivity extends Activity {
 			startActivity(new Intent(this,ControllerActivity.class));
 			finish();
 		}
+		releaseCamera();
 	}
 
 	@Override
@@ -157,6 +172,50 @@ public class VideoActivity extends Activity {
 			mediaRecorder = null;
 		}
 		super.onDestroy();
+	}
+
+	/**
+	 * 初始化相机
+	 *
+	 * @return camera
+	 */
+	private Camera getCamera() {
+
+		try {
+			mCamera = Camera.open();
+		} catch (Exception e) {
+			mCamera = null;
+		}
+		return mCamera;
+	}
+
+	/**
+	 * 在SurfaceView中预览相机内容
+	 *
+	 * @param camera camera
+	 * @param holder SurfaceHolder
+	 */
+	private void setStartPreview(Camera camera, SurfaceHolder holder) {
+		try {
+			camera.setPreviewDisplay(holder);
+			camera.setDisplayOrientation(90);
+			camera.startPreview();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	/**
+	 * 释放相机资源
+	 */
+	private void releaseCamera() {
+		if (mCamera != null) {
+			mCamera.setPreviewCallback(null);
+			mCamera.stopPreview();
+			mCamera.release();
+			mCamera = null;
+		}
 	}
 
 }
