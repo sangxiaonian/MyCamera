@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="5dp"
+        >
+        <VideoView
+            android:layout_centerInParent="true"
+            android:id="@+id/vv_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/bt_play"
+                android:text="播放"
+                />
+            <Button
+                android:layout_below="@id/bt_play"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/bt_new"
+                android:text="录制新内容"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        >
+        <VideoView
+            android:layout_centerInParent="true"
+            android:id="@+id/vv_video_down"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/bt_play_down"
+                android:text="播放"
+                />
+            <Button
+                android:layout_below="@id/bt_play_down"
+                android:layout_width="100dp"
+                android:id="@+id/bt_new_down"
+                android:layout_height="40dp"
+                android:text="录制新内容"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>
