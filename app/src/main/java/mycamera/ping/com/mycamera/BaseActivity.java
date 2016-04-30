@@ -18,38 +18,42 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initTimer();
+
 
     }
 
+    public void clear(){
+        JLog.i("----------clear-----------");
+        if (timerTask!=null){
+            timerTask.cancel();
+        }
+        if (timer!=null){
+            timer.cancel();
+        }
+
+        timer=null;
+        timerTask=null;
+    }
+
     //初始化时间
-    private void initTimer() {
+    public void initTimer() {
+
         clear();
+        JLog.i("---------initTimer--------");
         if (timer==null){
             timer=new Timer();
         }
 
-      if (timerTask==null){
-          timerTask=new TimerTask() {
-              @Override
-              public void run() {
-                  startActivity(new Intent(BaseActivity.this,ADActivity.class));
-              }
-          };
-      }
+        if (timerTask==null){
+            timerTask=new TimerTask() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(BaseActivity.this,ADActivity.class));
+                }
+            };
+        }
         timer.schedule(timerTask,5000);
 
-    }
-
-    private void clear(){
-        if (timer!=null){
-            timer.cancel();
-        }
-        if (timerTask!=null){
-            timerTask.cancel();
-        }
-        timer=null;
-        timerTask=null;
     }
 
     @Override
@@ -59,22 +63,30 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        initTimer();
+    protected void onPause() {
+        super.onPause();
+        clear();
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        clear();
+    protected void onResume() {
+        super.onResume();
         initTimer();
+    }
+
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        initTimer();
+        JLog.i("-----------onKeyDown-----");
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        initTimer();
+        JLog.i("-----------onTouchEvent-----");
         return super.onTouchEvent(event);
     }
 }

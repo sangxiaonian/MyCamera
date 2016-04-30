@@ -14,7 +14,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +32,8 @@
             android:screenOrientation="landscape" />
         <activity android:name=".shexiang.ControllerActivity" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".ADActivity" />
+        <activity android:name=".ADActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

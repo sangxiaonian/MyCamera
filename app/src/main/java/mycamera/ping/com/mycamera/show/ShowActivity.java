@@ -13,11 +13,12 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 
+import mycamera.ping.com.mycamera.BaseActivity;
 import mycamera.ping.com.mycamera.JLog;
 import mycamera.ping.com.mycamera.R;
 import mycamera.ping.com.mycamera.bean.Config;
 
-public class ShowActivity extends AppCompatActivity {
+public class ShowActivity extends BaseActivity {
 
     private ImageView img;
     private RecyclerView mRecyclerView;
@@ -59,6 +60,7 @@ public class ShowActivity extends AppCompatActivity {
                     .load(files[showHolder.getPosition()])
                     .centerCrop()
                     .into(showHolder.img_item);
+
             showHolder.img_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -66,6 +68,7 @@ public class ShowActivity extends AppCompatActivity {
                             .load(files[showHolder.getPosition()])
                             .centerCrop()
                             .into(img);
+                    initTimer();
                 }
             });
         }

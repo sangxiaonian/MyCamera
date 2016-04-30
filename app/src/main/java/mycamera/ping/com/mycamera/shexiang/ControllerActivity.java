@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -22,6 +23,7 @@ import mycamera.ping.com.mycamera.bean.Config;
 public class ControllerActivity extends BaseActivity implements OnClickListener {
     private VideoView vv_video, vv_video_down;
     private MediaController mController, mediaController_down;
+    private LinearLayout ll_up,ll_down;
 
     private Button bt_new, bt_newdown, bt_play, btplay_down;
 
@@ -38,6 +40,9 @@ public class ControllerActivity extends BaseActivity implements OnClickListener 
         bt_play = (Button) findViewById(R.id.bt_play);
         btplay_down = (Button) findViewById(R.id.bt_play_down);
 
+        ll_up = (LinearLayout) findViewById(R.id.ll_up);
+        ll_down= (LinearLayout) findViewById(R.id.ll_down);
+
         bt_new.setOnClickListener(this);
         bt_newdown.setOnClickListener(this);
         bt_play.setOnClickListener(this);
@@ -50,12 +55,15 @@ public class ControllerActivity extends BaseActivity implements OnClickListener 
 
     @Override
     public void onClick(View view) {
-
+        clear();
         switch (view.getId()) {
             case R.id.bt_play:
+
                 play(vv_video, mController, Config.video);
+
                 break;
             case R.id.bt_play_down:
+
                 play(vv_video_down, mediaController_down, Config.videodown);
                 break;
             case R.id.bt_new:
@@ -82,6 +90,14 @@ public class ControllerActivity extends BaseActivity implements OnClickListener 
             return;
         }
         if (file.exists()) {
+            if (Config.videodown.equals(path)){
+                ll_down.setVisibility(View.GONE);
+
+            }
+            if (Config.video.equals(path)){
+                ll_up.setVisibility(View.GONE);
+            }
+
             JLog.i("存在" + file.getAbsolutePath());
             // 设置播放视频源的路径
             vv_video.setVideoPath(file.getAbsolutePath());
@@ -123,6 +139,12 @@ public class ControllerActivity extends BaseActivity implements OnClickListener 
         startActivityForResult(intent, 0);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ll_down.setVisibility(View.VISIBLE);
+        ll_up.setVisibility(View.VISIBLE);
+    }
 }
 
 
